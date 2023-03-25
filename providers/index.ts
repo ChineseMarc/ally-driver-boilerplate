@@ -1,14 +1,15 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
 
-export default class YourDriverProvider {
+export default class MinecraftDriverProvider {
   constructor(protected app: ApplicationContract) {}
 
   public async boot() {
     const Ally = this.app.container.resolveBinding('Adonis/Addons/Ally')
-    const { YourDriver } = await import('../src/YourDriver')
+    const { MinecraftDriver } = await import('../src/MinecraftDriver/')
 
-    Ally.extend('yourdriver', (_, __, config, ctx) => {
-      return new YourDriver(ctx, config)
+    // @ts-ignore
+    Ally.extend('minecraft', (_, __, config, ctx) => {
+      return new MinecraftDriver(ctx, config)
     })
   }
 }
