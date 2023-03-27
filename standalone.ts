@@ -1,2 +1,2 @@
-export * from './src/MinecraftDriver/index'
-export * from './src/MinecraftDriver/interfaces'
+export * from './src/MinecraftDriver/index';
+export * from './src/MinecraftDriver/interfaces';
