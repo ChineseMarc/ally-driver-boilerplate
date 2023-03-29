@@ -3,7 +3,6 @@ import { RedirectRequestContract } from '@ioc:Adonis/Addons/Ally';
 import { Oauth2Driver } from '@adonisjs/ally/build/standalone';
 import { ofetch } from 'ofetch';
 import { MCTokenResponse, XboxServiceTokenResponse, MinecraftUserResponse } from './interfaces';
-
 export type MinecraftDriverAccessToken = {
 	token: string;
 	type: 'bearer';
@@ -91,6 +90,11 @@ export class MinecraftDriver extends Oauth2Driver<
 				'https://api.minecraftservices.com/entitlements/mcstore',
 				basicOptions
 			); //.catch((err) => console.error('[ALLY-Minecraft-Driver] checkOwnership error ' + err))
+			let email: string | null | undefined;
+			if (id_token) {
+				const jwt: any = parseJwt(id_token);
+				if (jwt) email = jwt.email;
+			}
 
 			if (!checkOwnership?.items.length)
 				return {
@@ -98,6 +102,7 @@ export class MinecraftDriver extends Oauth2Driver<
 					gamertag: xboxProfile.DisplayClaims.xui[0]?.gtg,
 					premium: false,
 					token: mcToken,
+					email: email ?? undefined,
 				};
 
 			const nameChange = await ofetch(
@@ -105,7 +110,7 @@ export class MinecraftDriver extends Oauth2Driver<
 				basicOptions
 			); //.catch((err) => console.error('[ALLY-Minecraft-Driver] nameChange error ' + err))
 
-			const mcProfile = await ofetch(
+			const mcProfile: any = await ofetch(
 				'https://api.minecraftservices.com/minecraft/profile',
 				basicOptions
 			); //.catch((err) => console.error('[ALLY-Minecraft-Driver] mcProfile error' + err))
@@ -115,10 +120,7 @@ export class MinecraftDriver extends Oauth2Driver<
 			mcProfile.createdAt = nameChange.createdAt;
 			mcProfile.xuid = xboxProfile.DisplayClaims.xui[0]?.xid;
 			mcProfile.gamertag = xboxProfile.DisplayClaims.xui[0]?.gtg;
-			if (id_token) {
-				const jwt = parseJwt(id_token);
-				if (jwt) mcProfile.email = jwt.email;
-			}
+			if (email) mcProfile.email = email;
 			return mcProfile;
 		} catch (err) {
 			console.log(err);
@@ -130,7 +132,7 @@ export class MinecraftDriver extends Oauth2Driver<
 	public async user(): Promise<MinecraftUserResponse> {
 		try {
 			const data = await this.accessToken();
-			return this.GetUserInfo(data.token, data.id_token);
+			return await this.GetUserInfo(data.token, data.id_token);
 		} catch (err) {
 			throw new Error('[ALLY-Minecraft-Driver] error ' + err);
 		}

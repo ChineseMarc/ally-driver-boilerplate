@@ -1,6 +1,6 @@
 {
   "name": "@crafty.gg/ally-minecraft-driver",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Minecraft driver for AdonisJS Ally",
   "main": "build/providers/index.js",
   "files": [
