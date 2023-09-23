@@ -35,7 +35,7 @@ export interface MinecraftUserResponse {
 			url: string;
 			state: string;
 			alias?: string;
-		}
+		},
 	];
 	capes?: [
 		{
@@ -43,7 +43,7 @@ export interface MinecraftUserResponse {
 			url: string;
 			state: string;
 			alias: string;
-		}
+		},
 	];
 	profileActions?: any;
 	createdAt?: string;

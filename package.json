@@ -1,6 +1,6 @@
 {
   "name": "@crafty.gg/ally-minecraft-driver",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Minecraft driver for AdonisJS Ally",
   "main": "build/providers/index.js",
   "files": [
@@ -23,20 +23,20 @@
     "adonisjs",
     "adonis-ally"
   ],
-  "author": "",
+  "author": "crafty.gg",
   "license": "MIT",
   "devDependencies": {
     "@adonisjs/ally": "^4.1.5",
     "@adonisjs/core": "^5.9.0",
-    "@rowboat/prettier": "^0.0.3",
-    "@types/node": "^18.15.10",
-    "del-cli": "^5.0.0",
-    "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.8.0",
+    "@rowboat/prettier": "0.0.3",
+    "@types/node": "^20.6.4",
+    "del-cli": "^5.1.0",
+    "eslint": "^8.50.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-adonis": "^2.1.1",
-    "eslint-plugin-prettier": "^4.2.1",
-    "prettier": "^2.8.7",
-    "typescript": "^5.0.2"
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "@adonisjs/ally": "^4.0.0",
@@ -56,6 +56,6 @@
   },
   "prettier": "@rowboat/prettier",
   "dependencies": {
-    "ofetch": "^1.0.1"
+    "ofetch": "^1.3.3"
   }
 }

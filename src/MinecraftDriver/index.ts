@@ -52,7 +52,10 @@ export class MinecraftDriver extends Oauth2Driver<
 
 	protected scopesSeparator = ' ';
 
-	constructor(ctx: HttpContextContract, public config: MinecraftDriverConfig) {
+	constructor(
+		ctx: HttpContextContract,
+		public config: MinecraftDriverConfig
+	) {
 		super(ctx, config);
 
 		this.loadState();
@@ -65,6 +68,8 @@ export class MinecraftDriver extends Oauth2Driver<
 	protected configureRedirectRequest(request: RedirectRequestContract<MinecraftDriverScopes>) {
 		request.param('response_type', 'code');
 		request.param('scope', this.config.scopes.join(' '));
+		request.param('cobrandid', '8058f65d-ce06-4c30-9559-473c9275a65d');
+		request.param('prompt', 'select_account');
 	}
 
 	public async GetUserInfo(token: string, id_token?: string): Promise<MinecraftUserResponse> {
